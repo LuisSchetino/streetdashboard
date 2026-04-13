@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Street Football - Painel Oficial</title>
+    
+    <meta property="og:title" content="Street Football - Dashboard Oficial">
+    <meta property="og:description" content="Acompanhe os scouts, estatísticas e a diretoria do Street Football em tempo real.">
+    <meta property="og:image" content="https://streetdashboard.com.br/logo-preview.png">
+    <meta property="og:url" content="https://streetdashboard.com.br">
+    <meta property="og:type" content="website">
+
+    <style>
+        /* Garante que o sistema ocupe a tela toda sem bordas */
+        body, html { 
+            margin: 0; 
+            padding: 0; 
+            height: 100%; 
+            width: 100%;
+            overflow: hidden; 
+            background-color: #07090f; /* Cor escura padrão do seu app */
+        }
+        iframe { 
+            width: 100%; 
+            height: 100%; 
+            border: none; 
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <iframe id="painelStreet" src="https://script.google.com/macros/s/AKfycbzYxAVp76yu_7W4TlGImf1GzQ9EbGQ6d5iPvaxA_4NQkOiSluIyy5EgZxvoGt-mTIMjZQ/exec"></iframe>
+
+    <script>
+        // Truque para o botão voltar do Android e controle de histórico
+        window.onpopstate = function(event) {
+            const iframe = document.getElementById('painelStreet');
+            iframe.contentWindow.postMessage('goBack', '*');
+        };
+
+        window.addEventListener('message', function(e) {
+            if (e.data === 'pushState') {
+                window.history.pushState({}, '');
+            }
+        });
+    </script>
+</body>
+</html>
