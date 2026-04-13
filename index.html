@@ -1,1 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-select=no">
+    <title>Street Football - Painel Oficial</title>
+    <style>
+        /* Garante que o sistema ocupe a tela toda sem bordas */
+        body, html { 
+            margin: 0; 
+            padding: 0; 
+            height: 100%; 
+            width: 100%;
+            overflow: hidden; 
+            background-color: #07090f; /* Cor do fundo do seu app */
+        }
+        iframe { 
+            width: 100%; 
+            height: 100%; 
+            border: none; 
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <iframe id="painelStreet" src="SEU_LINK_DO_GOOGLE_APPS_SCRIPT_AQUI"></iframe>
 
+    <script>
+        // Truque para o botão voltar do Android:
+        // Quando o usuário tentar voltar, ele avisa o iframe para mudar a aba interna
+        window.onpopstate = function(event) {
+            const iframe = document.getElementById('painelStreet');
+            iframe.contentWindow.postMessage('goBack', '*');
+        };
+
+        // Escuta mensagens do sistema interno para manter o histórico do domínio limpo
+        window.addEventListener('message', function(e) {
+            if (e.data === 'pushState') {
+                window.history.pushState({}, '');
+            }
+        });
+    </script>
+</body>
+</html>
